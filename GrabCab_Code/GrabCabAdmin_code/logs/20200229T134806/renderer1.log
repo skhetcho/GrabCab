@@ -1,0 +1,8 @@
+[2020-02-29 13:52:21.484] [renderer1] [error] Error: Error: ENOENT: no such file or directory, stat '/home/volcano/Desktop/GrabCab/main/GrabCab_Code/.vscode'
+[2020-02-29 13:58:26.921] [renderer1] [error] Error: Error: ENOENT: no such file or directory, stat '/home/volcano/Desktop/Dashr/main/GrabCab_Code/.vscode'
+[2020-02-29 14:30:45.965] [renderer1] [error] Data tree node not found: [object Object]: Error: Data tree node not found: [object Object]
+    at Y.getDataNode (file:///usr/share/code/resources/app/out/vs/workbench/workbench.main.js:959:671)
+    at Y.reveal (file:///usr/share/code/resources/app/out/vs/workbench/workbench.main.js:959:261)
+    at e.<anonymous> (file:///usr/share/code/resources/app/out/vs/workbench/workbench.main.js:5278:341)
+    at Generator.next (<anonymous>)
+    at r (file:///usr/share/code/resources/app/out/vs/workbench/workbench.main.js:34:454)

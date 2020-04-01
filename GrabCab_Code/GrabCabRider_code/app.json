@@ -1,0 +1,67 @@
+{
+  "expo": {
+    "name": "Dashr",
+    "description": "Taxi and Ride Sharing Done Right",
+    "slug": "DashrRider",
+    "privacy": "unlisted",
+    "sdkVersion": "36.0.0",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "notification": {
+      "icon": "./assets/images/push_notification.png"
+    },
+    "version": "2.25.3",
+    "orientation": "portrait",
+    "icon": "./assets/images/appIcon.png",
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.dashr.dashr",
+      "infoPlist": {
+        "NSLocationAlwaysUsageDescription": "This app uses the location to find the Cabs near you.",
+        "NSLocationWhenInUseUsageDescription": "This app uses the location to find the Cabs near you.",
+        "NSCameraUsageDescription": "This app uses the camera to take your profile picture.",
+        "NSPhotoLibraryUsageDescription": "This app uses Photo Library for uploading your profile picture.",
+        "UIBackgroundModes": [
+        "location",
+        "fetch"
+        ]
+      },
+      "config": {
+        "googleMapsApiKey": "AIzaSyA_7PeswJ4eBxwub_3vWuE94JHIZaEcvZQ"
+      }
+    },
+    "android": {
+      "package": "com.dashr.dashr",
+      "permissions": [
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "CAMERA_ROLL"
+      ],
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyA_7PeswJ4eBxwub_3vWuE94JHIZaEcvZQ"
+        }
+      }
+    },
+    "facebookScheme": "fb182885836484535",
+    "facebookAppId": "182885836484535",
+    "facebookDisplayName": "Dashr App"
+  }
+}
