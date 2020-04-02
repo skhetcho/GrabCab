@@ -7,6 +7,7 @@ import {
     TextField,
     Button
 } from '@material-ui/core';
+import SelectableCardList from '../components/SelectedCard/SelectedCard.js'
 import DashboardCard from '../components/DashboardCard';
 import Map from '../components/Map';
 import { useSelector } from "react-redux";
@@ -30,14 +31,18 @@ const Dashboard = () => {
     const [pickup_address, set_pu_Address] = useState("");
     const [dropoff_address, set_do_Address] = useState("");
     const [selectCompany, setSelectCompany] = useState("");
+
+    const [pickup, setPickup] = useState("");
+    const [dropoff, setDropoff] = useState("");
     const [formDetails, setFormDetails] = useState({
-        pickup: "",
-        dropoff: "",
         pickup_lat: "",
         pickup_long: "",
         dropoff_lat: "",
         dropoff_long: "",
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
     });
+    const [carTypeSelection, setCarTypeSelection] = useState(null);
 
     const [allcarTypes, setAllCarTypes] = useState([]);
     const [allCars, setAllCars] = useState([]);
@@ -53,19 +58,19 @@ const Dashboard = () => {
     const bookingdata = useSelector(state => state.bookingdata);
 
     const handleChange_pickup = a => {
-        setFormDetails({...formDetails, pickup: a });
+        setPickup(a);
     };
     const handleChange_dropoff = a => {
-        setFormDetails({ ...formDetails, dropoff: a });
+        setDropoff(a);
     };
 
     const handleSelect_pickup = a => {
+        setPickup(a);
         console.log(a)
-        handleChange_pickup(a);
         mapping(a, 'pickup');
     };
     const handleSelect_dropoff = a => {
-        handleChange_dropoff(a);
+        setDropoff(a)
         mapping(a, 'dropoff');
     };
 
@@ -73,14 +78,16 @@ const Dashboard = () => {
         geocodeByAddress(a)
             .then(results => getLatLng(results[0]))
             .then(latLng => {
-                if(type == 'pickup'){
-                    setFormDetails({...formDetails,
+                if (type == 'pickup') {
+                    setFormDetails({
+                        ...formDetails,
                         pickup_lat: latLng.lat,
                         pickup_long: latLng.lng
                     })
                 }
-                else if(type == 'dropoff'){
-                    setFormDetails({...formDetails,
+                else if (type == 'dropoff') {
+                    setFormDetails({
+                        ...formDetails,
                         dropoff_lat: latLng.lat,
                         dropoff_long: latLng.lng
                     })
@@ -88,7 +95,6 @@ const Dashboard = () => {
             })
             .catch(error => console.error('Error', error));
     }
-
     const allCarsData = () => {
         const cars = firebase.database().ref('rates/car_type');
         cars.once('value', allCars => {
@@ -110,8 +116,9 @@ const Dashboard = () => {
         allCarsData();
     }, [])
 
-
-
+    const onListChanged = (selected) => {
+        setCarTypeSelection(selected);
+      }
 
     useEffect(() => {
         if (mylocation == null) {
@@ -192,7 +199,7 @@ const Dashboard = () => {
                     <Grid item xs={5}>
                         <Card style={{ padding: 15 }}>
                             <PlacesAutocomplete
-                                value={formDetails.pickup}
+                                value={pickup}
                                 onChange={handleChange_pickup}
                                 onSelect={handleSelect_pickup}
                             >
@@ -230,7 +237,7 @@ const Dashboard = () => {
                                 )}
                             </PlacesAutocomplete>
                             <PlacesAutocomplete
-                                value={formDetails.dropoff}
+                                value={dropoff}
                                 onChange={handleChange_dropoff}
                                 onSelect={handleSelect_dropoff}
                             >
@@ -267,6 +274,10 @@ const Dashboard = () => {
                                     </div>
                                 )}
                             </PlacesAutocomplete>
+                            {/*TODO:
+                                handle car type select card
+                                call BookNow() function from FareScreen.js
+                            */}
                             {/* <FormControl variant="outlined" className={classes.formControl}>
                                 <InputLabel htmlFor="outlined-age-native-simple">Company</InputLabel>
                                 <Select
@@ -285,7 +296,12 @@ const Dashboard = () => {
                                     <option value={30}>Thirty</option>
                                 </Select>
                             </FormControl> */}
-                            <Button variant="outlined" color="primary" onClick={() => console.log(formDetails)}>
+                            <SelectableCardList
+                                maxSelectable={1}
+                                contents={allcarTypes}
+                                onChange={onListChanged}
+                            />
+                            <Button variant="outlined" color="primary" onClick={() => console.log(allcarTypes)}>
                                 Primary
                             </Button>
 
